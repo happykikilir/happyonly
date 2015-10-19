@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> 地理位置定位 </title>
+  <meta charset="UTF-8">
+<script type="text/javascript"src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+ </head>
+
+ <body>
+		<p id="geo_loc"></p>
+		<div style="width:697px;height:550px;border:1px solid #ccc" id="ditubox"></div>
+	<script type="text/javascript">
+		if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(function(p){
+					var latitude = p.coords.latitude ;
+					var longtitude =  p.coords.lontitude;
+					createMap(longtitude,latitude);
+					alert(latitude,longtitude)
+				},
+				function(error){
+						var aaa=error.code + "\n" + error.message;
+						alert(aaa)
+			})
+		}else{
+			alert("浏览器不支持")
+		}
+function createMap(a,b){ //a 是纬度，b 是经度
+	var map = new BMap.Map("ditubox");
+	var point = new BMap.Point(b,a);
+	map.centerAndZoom(point,20);
+	window.map = map;
+}
+	</script>	
+ </body>
+</html>
+

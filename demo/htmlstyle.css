@@ -1,0 +1,12 @@
+ *{
+	margin:0px;
+	padding:0px;
+ }
+ body{
+ 
+	background:#333;
+}
+#c1{
+	margin:0px auto;
+	background:url(images/game_bg_2_hd.jpg);
+}

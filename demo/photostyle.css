@@ -1,0 +1,70 @@
+ *{
+	margin:0px;
+	padding:0px;
+ }
+ ul,ul li{
+	list-style:none;
+ }
+ em,i{
+	font-style:normal;
+ }
+ a{
+	text-decoration:none;
+}
+body{
+	background:#E5E5E5
+}
+.wrap{
+	width:840px;
+	position:relative;
+	margin:30px auto;	
+}
+.up{
+	width:40px;
+	height:40px;	
+	position:absolute;
+	background:url(images/arrow_hover.png) 0px 0px;
+}
+.down{
+	width:40px;
+	height:40px;	
+	position:absolute;
+	top:25%;
+	background:url(images/arrow_hover.png) 0px -40px;
+}
+ .navBox{
+	height:490px;
+	position:absolute;
+	right:0px;
+	top:25%;
+ }
+ .navBox a{
+	display:block;
+	text-align:center;
+	font:20px/60px "Microsoft YaHei";
+ }
+ .navList{
+	width:840px;
+	height:400px;
+	overflow:hidden;
+	position:relative;
+ }
+ .navList li{
+	height:200px;
+	margin-bottom:10px;
+	display:inline-block;
+	width:200px;
+	text-align:left;
+}
+
+ .navList  li img{
+	height:190px;
+	width:200px;
+}
+
+ .navList li a{
+ }
+ .navList a:hover{
+ }
+ 
+ 

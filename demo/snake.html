@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>贪吃蛇</title>
+<link href="snakestyle.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript">
+window.onload = function(){
+	var oDiv = document.getElementById("main");
+	var R = 8;
+	var C = 19;
+	var obtn = document.getElementById("div_btn");
+	
+	obtn.onclick = function(){
+		window.location.reload()
+	}
+	var aSnake = [];
+	for(var i = 0 ; i<5; i++){
+		var oNewDiv = document.createElement('div');
+		oNewDiv.className = "snake"+i;
+		oDiv.appendChild(oNewDiv); 
+		//r 行 c 列
+		aSnake[i] = { r:0 , c:5+i , div : oNewDiv ,d : 'l', type : 'snake'}
+		setPos(aSnake[i]);
+	}
+	
+	function setPos(obj){
+		obj.div.style.left = obj.c *30 + 'px';
+		obj.div.style.top = obj.r *30 + 'px';
+		/*if(obj.type == 'eat'){
+			obj.div.className = '';
+		}else{
+			obj.div.className = obj.d;
+		}*/
+	}
+	
+	var dir = 'l';
+	var timer = setInterval(function(){
+		//是否撞墙
+		if(aSnake[0].c <0 || aSnake[0].r<0 || aSnake[0].c >=C || aSnake[0].r >=R){
+			alert("撞墙上了");
+			clearInterval(timer);
+			return;
+		}
+		//是否撞在吃的上
+		for(var i = 1 ; i<aEat.length ; i++){
+			if(aSnake[0].r == aEat[i].r &&aSnake[0].c == aEat[i].c){
+				alert("要按顺序吃哦");
+				clearInterval(timer);
+				return;
+			}
+		}
+		//是否撞在自己身上
+		for(var i = 1 ; i<aSnake.length;i++){
+			if(aSnake[0].r == aSnake[i].r && aSnake[0].c == aSnake[i].c){
+				alert("不能吃自己哦");
+				clearInterval(timer);
+				return;
+			}
+		}
+		//是否吃到东西
+		if(aSnake[0].r == aEat[0].r && aSnake[0].c == aEat[0].c){
+			aSnake.splice(aSnake.length-3,0,aEat[0]);
+			aEat.shift();
+			
+			if(aEat.length==0){
+				createEat();
+			}
+		}
+	
+		for(i=aSnake.length -1 ; i>0 ;i--){
+			aSnake[i].r = aSnake[i-1].r;
+			aSnake[i].c= aSnake[i-1].c;
+			aSnake[i].d= aSnake[i-1].d;
+		}
+		switch(dir){
+			case 'l':
+			aSnake[0].c--;
+			break;
+			case 'r':
+			aSnake[0].c++;
+			break;
+			case 't':
+			aSnake[0].r--;
+			break;
+			case 'b':
+			aSnake[0].r++;
+			break;
+		}
+		for(var i=0;i<aSnake.length;i++){
+			setPos(aSnake[i])
+		}
+	},250)
+	
+	document.onkeydown = function(e){
+		
+		var oEvent = e || event;
+		switch(oEvent.keyCode){
+			case 37:
+			dir = 'l';
+			aSnake[0].d = 'l';
+			break;
+			case 38:
+			dir = 't';
+			aSnake[0].d = 't';
+			break;
+			case 39:
+			dir = 'r';
+			aSnake[0].d = 'r';
+			break;
+			case 40:
+			dir = 'b';
+			aSnake[0].d = 'b';
+			break;
+		}
+	}
+	
+	var aEat = []; 
+	var nowRow = 0;
+	function createEat(){
+		while(aEat.length<5){
+			var r =parseInt(Math.random()*R);
+			var c =parseInt(Math.random()*C);
+			var found = false;
+			
+			for(var i = 0 ; i <aSnake.length ; i++){
+				if(r == aSnake[i].r && c == aSnake[i].c){
+					found = true;
+				}
+			}
+			for(var i = 0 ; i <aEat.length ; i++){
+				if(r == aEat[i].r && c == aEat[i].c){
+					found = true;
+				}
+			}
+			if(!found){
+				var oNewDiv = document.createElement('div');
+				oNewDiv.style.background = 'url(images/snake.png) -'+30*aEat.length+'px  -'+29*nowRow + 'px';
+				oDiv.appendChild(oNewDiv);
+				aEat.push({ r : r , c : c , div: oNewDiv, type : 'eat'});
+			}
+			
+		} 
+		for(var i = 0 ; i <aEat.length ; i++){
+			setPos(aEat[i]);
+		}
+		nowRow++;
+	}
+	createEat();
+};
+</script>
+</head>
+<body>
+	<div id="div_btn">开始</div>
+<div id="div_stage">
+	
+	<p>1 2 3 4 5 ，上 山 打 老 虎 ，老 虎 没 打 到 ，打 到 小 松 鼠 ，哈 哈 哈 哈 哈 </p>
+	<div id="main"></div>
+</div>
+</body>
+</html>
